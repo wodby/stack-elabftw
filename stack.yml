@@ -1,0 +1,37 @@
+name: elabftw
+title: eLabFTW
+icon: elabftw
+category: collaboration
+
+services:
+- name: elabftw
+  title: eLabFTW
+  service: elabftw
+  required: true
+  main: true
+  links:
+  - name: mysql
+    service: mysql
+  - name: sendmail
+    service: opensmtpd
+  volumes:
+  - name: data
+    size: 20
+
+# eLabFTW's database: experiments, resources, users, teams and settings. It
+# needs MySQL 8 or later; MariaDB is not supported.
+- name: mysql
+  title: MySQL
+  service: mysql
+  required: true
+  volumes:
+  - name: data
+    size: 10
+
+# eLabFTW sends password resets, notifications and account requests by email.
+# When enabled, it becomes eLabFTW's SMTP server unless one was already set in
+# the Sysadmin panel.
+- name: opensmtpd
+  title: OpenSMTPD
+  service: opensmtpd
+  disabled: true
